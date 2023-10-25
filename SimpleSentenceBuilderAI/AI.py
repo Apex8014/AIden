@@ -1,7 +1,7 @@
 import random
 
-sentenceStructures = ["The <*noun> was <*adjective>","<*pronoun> was <*adjective>","<*noun*plural>"]
-partsOfSpeech = {"noun":["ball","cat","dog"],"pronoun":["it","he","she","they"], "adjective":["happy","sad","disapointed",]}
+sentenceStructures = ["<*article*singular> <*noun*singular> was <*adjective*singular>","<*pronoun*singular> was <*adjective*singular>","<*noun*plural>"]
+partsOfSpeech = {"article":{"singular":["the","that","this"],"plural":["those","these"]}, "noun": {"singular":["ball","cat","dog"], "plural":["balls","cats","dogs"]},"pronoun": {"singular":["it","he","she"], "plural":["they"]}, "adjective":{"singular":["happy","sad","disapointed",]}}
 sentence = random.choice(sentenceStructures)
 atributes = []
 
@@ -34,14 +34,11 @@ def sentenceEditor(sentence):
                         y += 1
                     atributes.append(currentAtribute)
                     currentAtribute = ""
-            sentence = sentence[0:i] + random.choice(partsOfSpeech[atributes[0]]) + "s" if sentence[-1] in ["a","e","i","o","u"] else "es" if "plural" in atributes else "" + sentence[x+1:len(sentence)]
-            print(atributes)
-            print(random.choice(partsOfSpeech[atributes[0]]))
-            print("-"+sentence[0:i]+"-")
-            print("-"+sentence[x:len(sentence)]+"-")
+            sentence = sentence[0:i] + random.choice(partsOfSpeech[atributes[0]][atributes[1]]) + sentence[x+1:len(sentence)]
             tag = ""
             currentAtribute = ""
             atributes = []
+    print(sentence)
 
 print("suffer")
 sentenceEditor(sentence)
